@@ -20,12 +20,12 @@ Antonio Carcia
 Archivo: **Consumo Gasolina Autos Ene 2018.xlsx**
 
 ## Resultados:
-### Directorio ./p2/dat/clean**
-Archivo: Consumo Gasolina Autos Ene 2018 - clean.csv**
+### Directorio ./p2/dat/clean
+Archivo: **Consumo Gasolina Autos Ene 2018 - clean.csv**
 
 ## Fuentes:
 ### Directorio ./p2/work: 
-Incluye el archivo R: acarcia_TD_PRA2.RDM, en el que se generan todos cálculos y análisis exigidos por el proceso analítico.
+Incluye el archivo R: **"acarcia_TD_PRA2.RDM"**, en el que se generan todos cálculos y análisis exigidos por el proceso analítico.
 
 ### Directorio ./p2/doc
 Incluye los archivos **“acarcia_TD_PRA2.html”** y su versión **“acarcia_TD_PRA2.pdf”**, en los que se describe paso a paso el proceso seguido para el procesamiento de los datos originales, hasta eventualmente concluir con la generación y ejecución del modelo analítico resultante.
