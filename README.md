@@ -16,10 +16,12 @@ Se desarrolla un modelo de clasificación sencillo, basado en le potencial que p
 Antonio Carcia
 
 ## Insumo:
-### Directorio ./p2/dat/in**Consumo Gasolina Autos Ene 2018.xlsx**
+### Directorio ./p2/dat/in
+Archivo: **Consumo Gasolina Autos Ene 2018.xlsx**
 
 ## Resultados:
-### Directorio ./p2/dat/clean**Consumo Gasolina Autos Ene 2018 - clean.csv**
+### Directorio ./p2/dat/clean**
+Archivo: Consumo Gasolina Autos Ene 2018 - clean.csv**
 
 ## Fuentes:
 ### Directorio ./p2/work: 
