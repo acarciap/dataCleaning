@@ -1185,7 +1185,7 @@ _**Conclusión de Sección**_:
 La única variable continua que presenta valores distintos de la media para los distintos niveles del factor _**Contaminación del Aire**_ , es el atributo _**NOx**_. El resto de las variables, no cuenta con suficiente capacidad predictiva para distinguir observaciones que pertenecen a las categorías **Moderada** y/o **Alta**. 
 
 
-## 6. Modelo Tentativo
+# 6. Modelo Tentativo
 En el siguiente segmento se procede a extraer una parte del conjunto de datos para utilizarlo como set de pruebas, durante la evaluación de la precisión de los modelos que sean generados.
 
 ```{r Juego de datos para training y test }
@@ -1218,7 +1218,7 @@ m.training <- cga2018.dat[ m.training.set, ]
 m.test <- cga2018.dat[ -m.training.set, ]
 ```
 
-### 6.1 Ensayo: Modelo de Agrupación
+## 6.1 Ensayo: Modelo de Agrupación
 Considerando que las variables que tienden a tener mayor fuerza predictiva están disponibles para todos los tipos de vehículos listados en la data original, una primera aproximación interesante es la de considerar un algoritmo de agrupación, que en caso de resultar pudiera incluir en sucesivos experimentos las filas eliminadas a causa de la supresión de la variable _**Tipo de Combustible**_ (excluida del ejercicio por falta de representatividad en la muestra, para resultados de la variable de respuesta).
 
 Un método no supervisado como el **k-means** pudiera ser de utilidad, pero en su versión para datos mixtos (numéricos y categóricos), cuya implementación está disponible a través de la función **kproto**. 
@@ -1240,7 +1240,7 @@ confusionMatrix(m.pred, m.test.rsl)
 
 La precisión obtenida es demasiado baja como para promover este modelo, que en parte nos reafirma el caracter poco predictivo de los datos.
 
-### 6.2 Ensayo: Modelo de Clasificación
+## 6.2 Ensayo: Modelo de Clasificación
 Alternativamente, consideraremos un modelo de árbol que ayude a ilustrar mejor la realidad de las caracteríticas de nuestro set de datos. Para ello utilizaremos las variables contínuas _**NOx**_ y _**CO2**_, además de las variables categporicas que hemos analizado en apartes anteriores (_**trans**_, _**cil**_ y _**GEI**_):
 
 ```{r Modelo arbol CART para nuestra muestra }
@@ -1297,7 +1297,7 @@ confusionMatrix(m.pred, m.test.rsl)
 
 La tasa de precisión que alcanza este nuevo modelo basado en un árbol CART, lo señala como muy adecuado el problema que nos hemos planteado.
 
-### 6.3 Ensayo: Modelo de Regresión Logística
+## 6.3 Ensayo: Modelo de Regresión Logística
 Si consideremos que la proporción de vehículos asociados a la categoría de contaminación del aire **Baja** es realmente muy baja en comparación con las otras dos, puede proponorse su integración a la categoría **Moderada**, de manera de convertir el problema de clasificación que hemos manejado hasta ahora, en uno de tipo binario.
 
 Bajo el cancepto anterior, se desea evaluar la probabilidad de que un vehículo correspondiente a una nueva observación pueda ser clasificado como perteneciente a la categoría **Moderada** o **Alta**, para ello puede utilizarse un modelo regresión logística, estimado con las variables estudiadas hasta ahora. Particularmente, tomaremos como referencia la importancia con la que el algoritmo CART califica a las variables del set.
@@ -1360,7 +1360,7 @@ caret::confusionMatrix(highCA.p, highCA, positive = "Alta")
 
 El resultado es bastante bueno, con una precisión tan alta como la que muestra el árbol de la sección anterior, siendo el modelo capaz de reconocer todos los vehículos de categorías inferiores (Specificity con valor 1).
 
-## 7. Conclusiones
+# 7. Conclusiones
 
 A lo largo del trabajo se ha tomado un juego de datos público, y se le han aplicado una serie de análisis y técnicas de limpieza y preparación, con el objetivo de construir un modelo analítico que  facilite la clasificación de los casos.
 

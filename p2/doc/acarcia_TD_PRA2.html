@@ -159,13 +159,13 @@ $(document).ready(function () {
 <li><a href="#correlacion-entre-variables-continuas">5.3.2 Correlación Entre Variables Continuas</a></li>
 <li><a href="#media-de-atributos-por-categoria-de-respuesta">5.3.3 Media de Atributos por Categoría de Respuesta</a></li>
 </ul></li>
+</ul></li>
 <li><a href="#modelo-tentativo">6. Modelo Tentativo</a><ul>
 <li><a href="#ensayo-modelo-de-agrupacion">6.1 Ensayo: Modelo de Agrupación</a></li>
 <li><a href="#ensayo-modelo-de-clasificacion">6.2 Ensayo: Modelo de Clasificación</a></li>
 <li><a href="#ensayo-modelo-de-regresion-logistica">6.3 Ensayo: Modelo de Regresión Logística</a></li>
 </ul></li>
 <li><a href="#conclusiones">7. Conclusiones</a></li>
-</ul></li>
 </ul>
 </div>
 
@@ -1338,8 +1338,9 @@ rslt</code></pre>
 <p><em><strong>Conclusión de Sección</strong></em>: La única variable continua que presenta valores distintos de la media para los distintos niveles del factor <em><strong>Contaminación del Aire</strong></em> , es el atributo <em><strong>NOx</strong></em>. El resto de las variables, no cuenta con suficiente capacidad predictiva para distinguir observaciones que pertenecen a las categorías <strong>Moderada</strong> y/o <strong>Alta</strong>.</p>
 </div>
 </div>
-<div id="modelo-tentativo" class="section level2">
-<h2>6. Modelo Tentativo</h2>
+</div>
+<div id="modelo-tentativo" class="section level1">
+<h1>6. Modelo Tentativo</h1>
 <p>En el siguiente segmento se procede a extraer una parte del conjunto de datos para utilizarlo como set de pruebas, durante la evaluación de la precisión de los modelos que sean generados.</p>
 <pre class="r"><code>#### Formación del set de datos de Entrenamiento y de Test
 
@@ -1368,8 +1369,8 @@ cga2018.dat &lt;- cga2018.dat[ , c( -3, -4, -5, -6, -7, -8, -12)]
 #
 m.training &lt;- cga2018.dat[ m.training.set, ]
 m.test &lt;- cga2018.dat[ -m.training.set, ]</code></pre>
-<div id="ensayo-modelo-de-agrupacion" class="section level3">
-<h3>6.1 Ensayo: Modelo de Agrupación</h3>
+<div id="ensayo-modelo-de-agrupacion" class="section level2">
+<h2>6.1 Ensayo: Modelo de Agrupación</h2>
 <p>Considerando que las variables que tienden a tener mayor fuerza predictiva están disponibles para todos los tipos de vehículos listados en la data original, una primera aproximación interesante es la de considerar un algoritmo de agrupación, que en caso de resultar pudiera incluir en sucesivos experimentos las filas eliminadas a causa de la supresión de la variable <em><strong>Tipo de Combustible</strong></em> (excluida del ejercicio por falta de representatividad en la muestra, para resultados de la variable de respuesta).</p>
 <p>Un método no supervisado como el <strong>k-means</strong> pudiera ser de utilidad, pero en su versión para datos mixtos (numéricos y categóricos), cuya implementación está disponible a través de la función <strong>kproto</strong>.</p>
 <p>En vista de que hemos rexpresado en 3 niveles al atributo <em><strong>CA</strong></em>, impondremos k = 3 para la inicialización del hiperparámetro del modelo.</p>
@@ -1419,8 +1420,8 @@ confusionMatrix(m.pred, m.test.rsl)</code></pre>
 ## Balanced Accuracy    0.304877   0.4633   0.5051</code></pre>
 <p>La precisión obtenida es demasiado baja como para promover este modelo, que en parte nos reafirma el caracter poco predictivo de los datos.</p>
 </div>
-<div id="ensayo-modelo-de-clasificacion" class="section level3">
-<h3>6.2 Ensayo: Modelo de Clasificación</h3>
+<div id="ensayo-modelo-de-clasificacion" class="section level2">
+<h2>6.2 Ensayo: Modelo de Clasificación</h2>
 <p>Alternativamente, consideraremos un modelo de árbol que ayude a ilustrar mejor la realidad de las caracteríticas de nuestro set de datos. Para ello utilizaremos las variables contínuas <em><strong>NOx</strong></em> y <em><strong>CO2</strong></em>, además de las variables categporicas que hemos analizado en apartes anteriores (<em><strong>trans</strong></em>, <em><strong>cil</strong></em> y <em><strong>GEI</strong></em>):</p>
 <pre class="r"><code>#### Modelo de árbol CART 
 ##
@@ -1501,8 +1502,8 @@ confusionMatrix(m.pred, m.test.rsl)</code></pre>
 ## Balanced Accuracy     1.00000   1.0000   1.0000</code></pre>
 <p>La tasa de precisión que alcanza este nuevo modelo basado en un árbol CART, lo señala como muy adecuado el problema que nos hemos planteado.</p>
 </div>
-<div id="ensayo-modelo-de-regresion-logistica" class="section level3">
-<h3>6.3 Ensayo: Modelo de Regresión Logística</h3>
+<div id="ensayo-modelo-de-regresion-logistica" class="section level2">
+<h2>6.3 Ensayo: Modelo de Regresión Logística</h2>
 <p>Si consideremos que la proporción de vehículos asociados a la categoría de contaminación del aire <strong>Baja</strong> es realmente muy baja en comparación con las otras dos, puede proponorse su integración a la categoría <strong>Moderada</strong>, de manera de convertir el problema de clasificación que hemos manejado hasta ahora, en uno de tipo binario.</p>
 <p>Bajo el cancepto anterior, se desea evaluar la probabilidad de que un vehículo correspondiente a una nueva observación pueda ser clasificado como perteneciente a la categoría <strong>Moderada</strong> o <strong>Alta</strong>, para ello puede utilizarse un modelo regresión logística, estimado con las variables estudiadas hasta ahora. Particularmente, tomaremos como referencia la importancia con la que el algoritmo CART califica a las variables del set.</p>
 <p>La variable dependiente será una variable binaria que indicará si el vehículo pertenece a la categoria de Contaminación de Aire <strong>Alta</strong>, o no</p>
@@ -1619,8 +1620,8 @@ caret::confusionMatrix(highCA.p, highCA, positive = &quot;Alta&quot;)</code></pr
 <p>El resultado es bastante bueno, con una precisión tan alta como la que muestra el árbol de la sección anterior, siendo el modelo capaz de reconocer todos los vehículos de categorías inferiores (Specificity con valor 1).</p>
 </div>
 </div>
-<div id="conclusiones" class="section level2">
-<h2>7. Conclusiones</h2>
+<div id="conclusiones" class="section level1">
+<h1>7. Conclusiones</h1>
 <p>A lo largo del trabajo se ha tomado un juego de datos público, y se le han aplicado una serie de análisis y técnicas de limpieza y preparación, con el objetivo de construir un modelo analítico que facilite la clasificación de los casos.</p>
 <p>Así, se han identificado y resuelto casos de valores perdidos, y agrupaciones de valores en categoría más altas (con la intención de simplificar la dimensión del problema). Ante la presencia de valores de tipo outliers para las variables de la muestra, se optó por no ajustarlas, por tratarse de especificaciones técnicas que pudieran estar respondiendo a características legítimas de la oferta, justificadas por la alta segmentación que experimenta el mercado automotriz.</p>
 <p>Específicamente, cualquier intento de tratamiento de los casos para los valores reportados en relación a las emisiones (presuntos outliers), solo puede ser procesadas bajo conocimiento funcional del dominio del problema, de modo que las acciones que se puedan adelantar en este sentido, sean coherentes y no desvirtúen la calidad de los datos. No obstante, una breve investigación sobre el tema, nos hacen pensar que los niveles reportados, son correctos y son similares a mediciones practicadas por instituciones como la ADAC.</p>
@@ -1634,7 +1635,6 @@ a Gasolina, no puede ser aplicado a observaciones correspondientes a modelos que
 Diesel como combustible.</code></pre>
 <p>El problema que nos hemos planteado es de tipo Clasificación, tal como se recoge en el resultado obtenido, su comparación con un intento previo de aplicar un método de agrupamiento, nos confirma que otros tipos de modelos pueden resultar inútiles e inaplicables a causa de la escasa precisión que obtienen por la mezcla de tipos de datos que presenta la muestra, y la estructura misma de la información que engloban.</p>
 <p>El desarrollo de un último modelo de Regresión Logística ha resultado muy acertivo, pero en un escenario en el que se reducen aún más las categorías de contaminación de Aire. Si bien, no es tan bueno como el de árbol, puede ser utilizado como un modelo alternativo en caso de que se ajuste a las restricciones de uso, pero debe ternerse en cuenta que sigue siendo válida la restricción de uso sobre vehículos a <strong>Diesel</strong>, ya que el modelo no ha sido entrenado con datos pertenecientes a este estrato.</p>
-</div>
 </div>
 
 
